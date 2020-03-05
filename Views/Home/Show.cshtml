@@ -1,0 +1,27 @@
+@model Shindig
+<link rel="stylesheet" href="~/css/wedding/show.css">
+<h1>@Model.Title <a href="dashboard" class="btn btn-primary">Dashboard</a> <a href="/logout" class="btn btn-danger">Log Out</a></h1>
+<br>
+<h4>Event Coordinator: @Model.Creator.Name</h4>
+<br>
+<h4>Description:</h4>
+<p>@Model.Description</p>
+<h4>Guests:</h4>
+<ul>
+    @foreach (var response in @Model.Responses)
+    {
+        <li>@response.Guest.Name</li>
+    }
+</ul>
+@if (@Model.UserId == ViewBag.UserId)
+                {
+                    <a href="/delete/@Model.ShindigId">Delete</a>
+                }
+                else if (Model.Responses.Any(r => r.UserId == ViewBag.UserId))
+                {
+                    <a href="/Leave/@Model.ShindigId">Leave</a>
+                }
+                else
+                {
+                    <a href="/join/@Model.ShindigId">Join</a>
+                }

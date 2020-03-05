@@ -1,0 +1,43 @@
+@model Shindig
+<style>
+    form {
+        width: 400px;
+    }
+    .btn-primary {
+        margin-left: 200px;
+    }
+</style>
+<h1>Create an Activity <a href="dashboard" class="btn btn-primary">Home</a> <a href="/logout" class="btn btn-danger">LogOut</a></h1>
+<form action="/create" method="post">
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <span asp-validation-for="Title"></span>
+        <input asp-for="Title" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="Date"></label>
+        <span asp-validation-for="Date"></span>
+        <input type="date" asp-for="Date" class="form-control">
+    </div>
+    <div class="Time">
+        <label asp-for="Time"></label>
+        <span asp-validation-for="Time"></span>
+        <input placeholder="10 AM" asp-for="Time" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="Duration"></label>
+        <span asp-validation-for="Duration"></span>
+        <input type="number" asp-for="Duration" class="form-control">
+        <select name="dur">
+            <option value="Minutes">Minutes</option>
+            <option value="Hours">Hours</option>
+            <option value="Days">Days</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <span asp-validation-for="Description"></span>
+        <input asp-for="Description" class="form-control">
+    </div>
+    <input type="submit" value="Create Activity" class="btn btn-success">
+</form>

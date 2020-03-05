@@ -1,0 +1,53 @@
+@model List<Shindig>
+    <style>
+    table {
+        border: 3px solid black;
+    }
+    .btn-danger {
+        margin-left: 510px;
+    }
+</style>
+<h1>Dojo Activity Center</h1>
+<h3>Welcome, @ViewBag.User.Name!</h3>
+<a href ="/logout">Logout</a>
+<br>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Shindig</th>
+            <th scope="col">Date and Time</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Event Coordinator</th>
+            <th scope="col">No. of Participants</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var shindig in Model)
+        {
+            @if (@shindig.Date > DateTime.Now)
+            {
+            <tr>
+                <td><a href="/@shindig.ShindigId">@shindig.Title</a></td>
+                <td>@shindig.Date</td>
+                <td>@shindig.Duration @shindig.dur</td>
+                <td>@shindig.Creator.Name</td>
+                <td>@shindig.Responses.Count</td>
+                @if (shindig.UserId == ViewBag.UserId)
+                {
+                    <td><a href="/delete/@shindig.ShindigId">Delete</a></td>
+                }
+                else if (shindig.Responses.Any(r => r.UserId == ViewBag.UserId))
+                {
+                    <td><a href="/Leave/@shindig.ShindigId">Leave</a></td>
+                }
+                else
+                {
+                    <td><a href="/join/@shindig.ShindigId">Join</a></td>
+                }
+            </tr>
+            }
+        }
+    </tbody>
+    <a href="/new">Add New Activity</a>
+</table>
